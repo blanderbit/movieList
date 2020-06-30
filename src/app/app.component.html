@@ -1,0 +1,58 @@
+<main>
+    <div class="wrapper">
+        <div class="nav">
+            <text-field
+                    (input)="searchStr = $event.data"
+                    [width]="'170px'"
+                    placeholder="Name">
+            </text-field>
+            <dropdown
+                    [arrayData]="arrayNetwork"
+                    placeholder="Network"
+                    (change)="searchNetwork = $event">
+            </dropdown>
+            <dropdown
+                    [arrayData]="arrayDate"
+                    placeholder="Premiere"
+                    (change)="searchDate = $event">
+            </dropdown>
+        </div>
+        <app-table
+            [dataSource]="getData"
+            (orderBy)="orderBy.field = $event.cellProp;orderBy.way = $event.order"
+            [orderBy]="orderBy"
+            [limit]="pager"
+        >
+            <t-column
+                    cellName="Name"
+                    [filter]="orderBy.field === 'name'"
+                    cellProp="name">
+            </t-column>
+            <t-column
+                    cellName="Season"
+                    [filter]="orderBy.field === 'season'"
+                    cellProp="season">
+            </t-column>
+            <t-column
+                    cellName="Network"
+                    [filter]="orderBy.field === 'network'"
+                    cellProp="network">
+            </t-column>
+            <t-column
+                    cellName="Premiere"
+                    [filter]="orderBy.field === 'date'"
+                    cellProp="date"
+                    date="date"
+            >
+            </t-column>
+        </app-table>
+        <app-paginate
+            [length]="pageLength"
+            [current]="active"
+            [isPagerActive]="true"
+            [activePageSize]="pager"
+            (change)="changePagination($event)"
+        >
+        </app-paginate>
+    </div>
+</main>

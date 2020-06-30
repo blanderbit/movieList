@@ -1,0 +1,11 @@
+<div class="tr">
+    <div class="th"
+         [style]="{width: widthForCol}"
+         *ngFor="let item of array;">
+        {{item.cellName}}
+        <div class="none filter" (click)="clickEvent(item)">
+            <div *ngIf="!activeOrder.way || !(item.filter && activeOrder.way === 'ASC')" class="ASC">&lt;</div>
+            <div *ngIf="!activeOrder.way || !(item.filter && activeOrder.way === 'DESC')" class="DESC">&gt;</div>
+        </div>
+    </div>
+</div>

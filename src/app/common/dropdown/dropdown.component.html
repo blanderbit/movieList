@@ -1,0 +1,14 @@
+
+<div class="dropdown" (click)="expand = !expand" [ngStyle]="{width: width}">
+    <div class="dropdown-toggle" >
+        <span class="hidden-xs">{{ select || placeholder }}</span>
+        <i class="fa fa-table">&hearts;</i>
+    </div>
+    <ul class="dropdown-menu slide" [hidden]="expand">
+        <li (click)="clickEvent('')">Clear</li>
+        <li  *ngFor="let item of array;" (click)="clickEvent(item)">
+            {{ item }}
+        </li>
+    </ul>
+</div>
+

@@ -1,0 +1,9 @@
+.tr{
+  width: 100%;
+  display: flex;
+  .td{
+    padding: 5px 10px;
+    min-width: 100px;
+    word-break: break-all;
+  }
+}

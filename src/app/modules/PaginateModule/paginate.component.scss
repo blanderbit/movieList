@@ -1,0 +1,46 @@
+.paginate {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  .paginate-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .item, .paginate-right-arrow, .paginate-left-arrow {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.4s;
+    background: rgba(248, 216, 148, 0.25);
+
+    &.active {
+      color: white;
+      background: #fe9f50;
+    }
+
+    &:hover:not(.paginate-left-arrow, .paginate-right-arrow) {
+      background: #fdcc68;
+    }
+
+    &.disabled {
+      background: rgba(169, 169, 169, 0.07);
+
+      &:hover {
+        background: rgba(169, 169, 169, 0.47);
+      }
+    }
+  }
+
+  .paginate-right-arrow, .paginate-left-arrow {
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+}

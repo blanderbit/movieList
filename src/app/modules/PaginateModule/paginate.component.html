@@ -1,0 +1,46 @@
+<div class="paginate">
+    <div class="paginate-container">
+        <div class="paginate-left-arrow" [ngClass]="{disabled: current === 1}" (click)="prevStep()">
+            &lt;
+        </div>
+        <div
+            *ngIf="beforeRenderList"
+            class="item"
+            [class.active]="1 === current"
+            (click)="eventCLick(1)">
+            {{1}}
+        </div>
+        <span class="disabled" *ngIf="beforeRenderList">
+          <a>...</a>
+        </span>
+        <ng-container *ngFor="let item of steps;">
+            <div
+                    class="item"
+                    [class.active]="item === current"
+                    (click)="eventCLick(item)">
+                {{item}}
+            </div>
+        </ng-container>
+        <span class="item disabled" *ngIf="afterRenderList">
+          <a>...</a>
+        </span>
+        <div
+            *ngIf="afterRenderList"
+            class="item"
+            [class.active]="length.length === current"
+            (click)="eventCLick(length.length)">
+            {{length.length}}
+        </div>
+        <div [ngClass]="{disabled: current === length.length}"
+             class="paginate-right-arrow"
+             (click)="nextStep()">
+            &gt;
+        </div>
+    </div>
+    <app-pager
+            *ngIf="isPagerActive"
+            [pageSizes]="pageSize"
+            (changePager)="eventCLick(undefined, $event)"
+            [activeSize]="activePageSize"
+    ></app-pager>
+</div>

@@ -1,0 +1,8 @@
+<div class="tr">
+    <div class="td"
+         [style]="{width: widthForCol}"
+         *ngFor="let item of arrayProps; let ind = index">
+        <span *ngIf="!!propsDate[ind]">{{item | date}}</span>
+        <span *ngIf="!propsDate[ind]">{{item}}</span>
+        </div>
+</div>

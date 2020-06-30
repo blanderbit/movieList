@@ -1,0 +1,20 @@
+<div class="table">
+    <ng-container *ngIf="disableTColumn">
+        <ng-content select="t-column"></ng-content>
+    </ng-container>
+    <ng-container *ngIf="(dataSource | async) as data">
+        <t-headers
+            (orderBy)="order.emit($event)"
+            [activeOrder]="orderBy"
+            [width]="widthCol"
+            [array]="propsTHead">
+        </t-headers>
+        <t-row
+            *ngFor="let item of data;"
+            [width]="widthCol"
+            [propsDate]="propsDate"
+            [item]="item"
+            [propsTProp]="propsTProp">
+        </t-row>
+    </ng-container>
+</div>

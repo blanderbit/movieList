@@ -1,0 +1,10 @@
+<div class="pager">
+    <ng-container *ngFor="let item of pageSizesArray;">
+        <div
+            class="pager-item"
+            [class.active]="item === activeSize"
+            (click)="eventCLick(item)">
+            {{item}}
+        </div>
+    </ng-container>
+</div>
