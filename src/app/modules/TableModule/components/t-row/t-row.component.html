@@ -2,6 +2,7 @@
     <div class="td"
          [style]="{width: widthForCol}"
          *ngFor="let item of arrayProps; let ind = index">
+
         <ng-container *ngIf="!getTemplate(propsTemplate[ind])">
             <span *ngIf="propsDate[ind] === 'date'">{{item | date}}</span>
             <span *ngIf="propsDate[ind] !== 'date'">{{item}}</span>

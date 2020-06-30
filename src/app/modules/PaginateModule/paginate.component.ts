@@ -36,14 +36,19 @@ export class PaginateComponent {
         if (this.length.length <= this.displayLength) {
             return false;
         }
-        return (this.length.length - 3) >= ( this.length.length -  (this.current - 1) );
+        return (this.length.length - 3) > ( this.length.length -  (this.current - 1) );
+    }
+
+    get getPersent(){
+        return (100) / (this.current % 2 === 0 ? 4 : 3);
     }
 
     get afterRenderList(): boolean {
         if (this.length.length <= this.displayLength) {
             return false;
         }
-        return (this.length.length - (this.current + 1) ) >= 3;
+        const step = ((100  * this.current) / this.length.length);
+        return Math.ceil(step + this.getPersent) < 100;
     }
 
     get steps(): number[] {

@@ -14,6 +14,6 @@ export class TableChildConfig {
 }
 
 export interface ChildRowTemplateInterface {
-    nameProps: string,
-    ref: TemplateRef<any>
+    nameProps: string;
+    ref: TemplateRef<any>;
 }

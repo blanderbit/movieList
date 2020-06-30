@@ -4,19 +4,25 @@
     </ng-container>
     <ng-container *ngIf="(dataSource | async) as data">
         <t-headers
+            *ngIf="data.length > 0"
             (orderBy)="order.emit($event)"
             [activeOrder]="orderBy"
             [width]="widthCol"
             [array]="propsTHead">
         </t-headers>
-        <t-row
-            *ngFor="let item of data;"
-            [width]="widthCol"
-            [propsDate]="propsDate"
-            [childRowTemplate]="childRowTemplate"
-            [propsTemplate]="propsTemplate"
-            [item]="item"
-            [propsTProp]="propsTProp">
-        </t-row>
+        <ng-container *ngIf="data.length > 0">
+            <t-row
+                *ngFor="let item of data;"
+                [width]="widthCol"
+                [propsDate]="propsDate"
+                [childRowTemplate]="childRowTemplate"
+                [propsTemplate]="propsTemplate"
+                [item]="item"
+                [propsTProp]="propsTProp">
+            </t-row>
+        </ng-container>
+        <div *ngIf="data.length < 1" class="width100 justify-center">
+            This table haven`t data
+        </div>
     </ng-container>
 </div>

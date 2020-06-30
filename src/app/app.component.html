@@ -69,6 +69,7 @@
             </ng-template>
         </app-table>
         <app-paginate
+             *ngIf="pageLength > 0"
             [length]="pageLength"
             [current]="active"
             [isPagerActive]="true"

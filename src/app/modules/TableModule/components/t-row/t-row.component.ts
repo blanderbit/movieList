@@ -11,18 +11,23 @@ export class TRowComponent {
     @Input('propsDate') propsDate: any[] = [];
     @Input('propsTemplate') propsTemplate: any[] = [];
     @Input('item') itemMain: any;
-    @Input('width') width :number;
+    @Input('width') width: number;
     @Input('childRowTemplate') childRowTemplate: ChildRowTemplateInterface[] = [];
-    get widthForCol () {
+
+    get widthForCol(): string {
         return `${this.width}%`;
     }
 
-    get arrayProps(){
+    get arrayProps(): string[] {
+
         return typeof this.itemMain === 'object'
-            ? Object.keys(this.itemMain).map(i => this.propsTProp.includes(i) && this.itemMain[i])
+            ? Object.keys(this.itemMain)
+                .map(i => this.propsTProp.includes(i) && this.itemMain[i])
+                .filter(i => !!i)
             : [];
     }
-    getTemplate(name: string): ChildRowTemplateInterface | object{
-        return this.childRowTemplate.find(i => i.nameProps === name)
+
+    getTemplate(name: string): ChildRowTemplateInterface | object {
+        return this.childRowTemplate.find(i => i.nameProps === name);
     }
 }

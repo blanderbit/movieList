@@ -89,7 +89,7 @@ export class AppComponent extends AppComponentHelper<any> {
 
 
     get pageLength(): number {
-        return 7 //Math.ceil(this.dataSource.value.length / this.pager);
+        return Math.ceil(this.dataSource.value.length / this.pager);
     }
 
     get arrayNetwork(): object {
