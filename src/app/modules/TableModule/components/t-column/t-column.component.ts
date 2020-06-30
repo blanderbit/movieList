@@ -13,4 +13,5 @@ export class TColumnComponent {
     @Input('order') order: staticTColl;
     @Input('cellProp') cellProp: staticTColl;
     @Input('date') date?: staticTCollDate;
+    @Input('template') template?: staticTColl;
 }

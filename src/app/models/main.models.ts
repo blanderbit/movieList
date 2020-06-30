@@ -7,4 +7,10 @@ export class MovieModel {
     season: number;
     network: string;
     date: number | string | Date;
+    genre: string[]
+}
+
+export interface OrderBy {
+    field: string,
+    way: string
 }

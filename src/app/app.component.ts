@@ -1,33 +1,40 @@
-import { Component } from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import { map } from "rxjs/operators";
-import { ListsService } from "./_services/lists.service";
-import {ChangeDataPagination} from "./modules/PaginateModule/interface/interface";
-import {Observable} from "rxjs";
-import {MovieModel} from "./models/main.models";
+import { ChangeDataPagination } from "./modules/PaginateModule/interface/interface";
+import { BehaviorSubject, Observable } from "rxjs";
+import { MovieModel, OrderBy } from "./models/main.models";
+import { AppComponentHelper } from "./component-helper/app.component.helper";
+import { ASC, DESC } from "./consts/const";
+import {ListsService} from "./_services/lists.service";
+import {OrdersService} from "./_services/orders.service";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-    dataSource = this.service.getData();
+
+export class AppComponent extends AppComponentHelper<any>{
+    dataSource: BehaviorSubject<MovieModel[]> = this.lService.getData();
 
     constructor(
-        private service: ListsService
-    ){}
-
-    active = 1;
-    pager = 5;
-
-    orderBy = {
-        field: '',
-        way: ''
+        @Inject(ListsService) private lService: ListsService,
+        @Inject(OrdersService) private OService: OrdersService) {
+        super();
     }
 
-    searchStr = ''
-    searchNetwork = ''
-    searchDate = ''
+    active: number = 1;
+    pager: number = 5;
+
+    orderBy: OrderBy = {
+        field: '',
+        way: ''
+    };
+
+    searchStr:string = '';
+    searchNetwork:string = '';
+    searchDate:string = '';
+    searchGenre:string = '';
 
     changePagination({item, pager}: ChangeDataPagination){
         item && (this.active = item)
@@ -39,9 +46,10 @@ export class AppComponent {
             map((array:MovieModel[]) => {
                 return this.PIPE(
                     [...array],
-                    (item: MovieModel[]): MovieModel[] => this.search(item, this.searchStr, 'name'),
-                    (item: MovieModel[]): MovieModel[] => this.search(item, this.searchNetwork, 'network'),
-                    (item: MovieModel[]): MovieModel[] => this.search(item, this.searchDate, 'date'),
+                    (item: MovieModel[]): MovieModel[] => this.OService.search(item, this.searchStr, 'name'),
+                    (item: MovieModel[]): MovieModel[] => this.OService.search(item, this.searchNetwork, 'network'),
+                    (item: MovieModel[]): MovieModel[] => this.OService.search(item, this.searchDate, 'date'),
+                    (item: MovieModel[]): MovieModel[] => this.OService.search(item, this.searchGenre, 'genre'),
                     (item: MovieModel[]): MovieModel[] => this.sort(item),
                     (item: MovieModel[]): MovieModel[] => this.dateReformat(item),
                     (item: MovieModel[]): MovieModel[] => {
@@ -60,17 +68,7 @@ export class AppComponent {
         }))
     }
 
-    PIPE = (...items: any[]): any => {
-        let state:any[] = []
-        if(Array.isArray(items)){
-            for(let item of items){
-                state = typeof item === 'function' ? item(state) : item;
-            }
-        }
-        return state;
-    }
-
-    sort(array){
+    sort(array: MovieModel[]): MovieModel[]{
         if(this.orderBy.field){
             return this.orderByFunc(array);
         } else {
@@ -78,59 +76,36 @@ export class AppComponent {
         }
     }
 
-    orderByFunc(array){
+    orderByFunc(array: MovieModel[]): MovieModel[]{
         switch (this.orderBy.way) {
-            case 'ASC': return this.orderByAsc(array, this.orderBy.field);
-            case 'DESC': return this.orderByDesc(array, this.orderBy.field);
-            default: return array;
+            case ASC:
+                return this.OService.orderByFunction(array, this.orderBy.field, ASC);
+            case DESC:
+                return this.OService.orderByFunction(array, this.orderBy.field, DESC);
+            default:
+                return array;
         }
     }
 
-    search(array, text = '', byOneField = '') {
-        if(!text) {
-            return array
-        }
-        if(byOneField) {
-            return array.filter(i => i[byOneField] && i[byOneField].includes && i[byOneField].includes(text));
-        }
-        return array.filter(i =>{
-            return Object.values(i).find((i:any) => i.includes && i.includes(text))
-        })
-    }
 
-    isDate(d){
-        return new Date(parseInt(d)) === 'Invalid Date'
-    }
-
-    orderByAsc = (array, field: string) => {
-        return array.sort((a, b) => {
-            if(a[field]){
-                return this.isDate(a[field])
-                    ? a[field].localeCompare && a[field].localeCompare(b[field])
-                    : Number(a[field]) - Number(b[field])
-            }
-        });
-    }
-    orderByDesc = (array, field) => {
-        return array.sort((a, b) => {
-            if(a[field]){
-                return this.isDate(a[field])
-                    ?  b[field].localeCompare && b[field].localeCompare(a[field])
-                    : Number(b[field]) - Number(a[field])
-            }
-        });
-    }
-
-    get pageLength(){
+    get pageLength(): number{
         return 2// Math.ceil(this.dataSource.value.length / this.pager)
     }
 
-    get arrayNetwork () {
+    get arrayNetwork (): object {
         return new Set([...this.dataSource.value].map(i => i.network))
     }
 
-    get arrayDate () {
+    get arrayDate (): object {
         return new Set([...this.dataSource.value].map(i => i.date))
+    }
+
+    get arrayGenre (): object {
+        return new Set(
+            this.CONCAT_ALL(
+                [...this.dataSource.value].map(i => i.genre)
+            )
+        )
     }
 
 }

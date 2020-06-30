@@ -17,15 +17,30 @@
                     (change)="searchDate = $event">
             </dropdown>
         </div>
+        <div class="nav">
+            <dropdown
+                [arrayData]="arrayGenre"
+                [width]="'190px'"
+                placeholder="Genre"
+                (change)="searchGenre = $event">
+            </dropdown>
+        </div>
         <app-table
             [dataSource]="getData"
             (orderBy)="orderBy.field = $event.cellProp;orderBy.way = $event.order"
             [orderBy]="orderBy"
             [limit]="pager"
+            [childRowTemplate]="[
+                {
+                    nameProps: 'name',
+                    ref: childTemplate
+                }
+            ]"
         >
             <t-column
                     cellName="Name"
                     [filter]="orderBy.field === 'name'"
+                    template="name"
                     cellProp="name">
             </t-column>
             <t-column
@@ -45,6 +60,12 @@
                     date="date"
             >
             </t-column>
+            <ng-template #childTemplate let-item="item">
+                <div>
+                    {{item.name}}
+                </div>
+                <badge [arrayData]="item.genre || []"></badge>
+            </ng-template>
         </app-table>
         <app-paginate
             [length]="pageLength"

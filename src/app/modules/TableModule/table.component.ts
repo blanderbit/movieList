@@ -1,9 +1,9 @@
-import {Component, ContentChildren, EventEmitter, Input, Output} from "@angular/core";
+import {Component, ContentChildren, EventEmitter, Input, Output, TemplateRef} from "@angular/core";
 import {Observable} from "rxjs";
 import {TColumnComponent} from "./components/t-column/t-column.component";
-import {staticTColl, staticTCollDate} from "./interface-type/type";
+import { staticTCollDate} from "./interface-type/type";
 import {ACTIVE_SIZE_DEF, WIDTH_TABLE_DEF} from "./consts/consts";
-import {TableChildConfig} from "./interface-type/interface";
+import {ChildRowTemplateInterface, TableChildConfig} from "./interface-type/interface";
 
 @Component({
     selector: 'app-table',
@@ -15,25 +15,31 @@ export class TableComponent {
     @Input('dataSource') dataSource: Observable<unknown>;
     @Input('limit') limit: number = ACTIVE_SIZE_DEF;
     @Input('orderBy') orderBy?: Object;
-    @Output('orderBy') order: EventEmitter<TColumnComponent> = new EventEmitter()
+    @Input('childRowTemplate') childRowTemplate: ChildRowTemplateInterface[];
 
+    @Output('orderBy') order: EventEmitter<TColumnComponent> = new EventEmitter()
     @ContentChildren( TColumnComponent) contentChild?;
     get propsTHead(): string[]{
         return this.contentChild.map((data: TableChildConfig): TableChildConfig => new TableChildConfig(data))
     }
 
     get propsTProp(): string[]{
-        return this.contentChild.map((i: TableChildConfig): staticTColl => i.cellProp)
+        return this.getProps('cellProp')
     }
 
     get propsDate(): string[]{
-        return this.contentChild.map((i: TableChildConfig): staticTCollDate => i.date)
+        return this.getProps('date')
+    }
+
+    get propsTemplate(): string[]{
+        return this.getProps('template')
+    }
+
+    getProps(name:string): string[]{
+        return this.contentChild.map((i: TableChildConfig): staticTCollDate => i[name])
     }
 
     get widthCol (): number {
         return WIDTH_TABLE_DEF / this.propsTHead.length
     }
-
-
-
 }

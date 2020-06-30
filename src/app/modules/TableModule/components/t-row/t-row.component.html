@@ -2,7 +2,15 @@
     <div class="td"
          [style]="{width: widthForCol}"
          *ngFor="let item of arrayProps; let ind = index">
-        <span *ngIf="!!propsDate[ind]">{{item | date}}</span>
-        <span *ngIf="!propsDate[ind]">{{item}}</span>
+        <ng-container *ngIf="!getTemplate(propsTemplate[ind])">
+            <span *ngIf="!!propsDate[ind]">{{item | date}}</span>
+            <span *ngIf="!propsDate[ind]">{{item}}</span>
+        </ng-container>
+        <ng-container
+                *ngIf="getTemplate(propsTemplate[ind])"
+                [ngTemplateOutlet]="getTemplate(propsTemplate[ind]).ref"
+                [ngTemplateOutletContext]="{item: itemMain}"
+        >
+        </ng-container>
         </div>
 </div>
