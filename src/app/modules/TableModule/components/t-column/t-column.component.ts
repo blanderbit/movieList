@@ -5,7 +5,7 @@ import {staticTColl, staticTCollDate} from "../../interface-type/type";
 @Component({
     selector: 't-column',
     templateUrl: './t-column.component.html',
-    styleUrls: ['./t-column.component.scss']
+    styleUrls: []
 })
 export class TColumnComponent {
     @Input('cellName') cellName: staticTColl;

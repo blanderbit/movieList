@@ -1,27 +1,15 @@
+@import "./../../../../../assets/style/variables";
 .tr{
-  width: 100%;
-  display: flex;
-
   .th{
-    background: #9a52d8;
+    background: $t-header-background;
     padding: 5px 10px;
     min-width: 100px;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    .none{
-      display: none;
-    }
+    color: $t-header-color;
     .filter{
       width: 10px;
       height: 29px;
       font-weight: bold;
       font-size: 14px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
       .ASC, .DESC{
         cursor: pointer;
         transform: rotateZ(90deg);

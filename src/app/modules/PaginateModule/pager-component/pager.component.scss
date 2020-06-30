@@ -1,20 +1,19 @@
+@import "./../../../../assets/style/variables";
 .pager{
   display: flex;
   .pager-item{
     width: 30px;
     height: 30px;
     margin: 0 5px;
-    background: rgba(248, 216, 148, 0.25);
+    background: $pager-background;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    transition: all 0.5s;
     &.active{
-      color: white;
-      background: #fe9f50;
+      color: $pager-color-active;
+      background: $pager-background-active;
     }
     &:hover{
-      background: #fdcc68;
+      background: $pager-hover-background;
     }
   }
 }

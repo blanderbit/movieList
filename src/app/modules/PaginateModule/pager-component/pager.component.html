@@ -1,7 +1,7 @@
 <div class="pager">
     <ng-container *ngFor="let item of pageSizesArray;">
         <div
-            class="pager-item"
+            class="pager-item d-flex justify-center align-center"
             [class.active]="item === activeSize"
             (click)="eventCLick(item)">
             {{item}}

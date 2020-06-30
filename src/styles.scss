@@ -1,4 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
-body{
+body {
   background: #f3ecfb;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.width100 {
+  width: 100%;
+}
+
+.m-10-0{
+  margin: 10px 0;
+}
+
+.flex-column{
+  flex-direction: column;
 }

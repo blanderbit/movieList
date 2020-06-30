@@ -4,6 +4,7 @@ import {
     Input,
     Output
 } from '@angular/core';
+import {BadgeInterface} from "./interface/interface";
 
 @Component({
     selector: 'badge',
@@ -11,12 +12,28 @@ import {
     styleUrls: ['./badge.component.scss']
 })
 export class BadgeComponent {
-    @Input('arrayData') array: string[] = [];
+    _arrayData: BadgeInterface[] = [];
+    @Input('arrayData') set array(value: any) {
+        this._arrayData = value.map((item: string): BadgeInterface => {
+            return {
+                name: item,
+                color: this.randColor(),
+                id: this.uniqueId()
+            };
+        });
+    }
 
-    randColor() {
-        const r = Math.floor(Math.random() * (256)),
-            g = Math.floor(Math.random() * (256)),
-            b = Math.floor(Math.random() * (256));
+    get array(): any {
+        return this._arrayData;
+    }
+
+    randColor(): string {
+        const r = this.toFloor(256),
+            g = this.toFloor(256),
+            b = this.toFloor(256);
         return `rgba(${r},${g},${b}, 0.5)`;
     }
+
+    toFloor = (count: number): number => Math.floor(Math.random() * (count));
+    uniqueId = (): string => Math.random().toString(36).slice(-8);
 }

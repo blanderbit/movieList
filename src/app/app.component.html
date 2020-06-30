@@ -1,6 +1,6 @@
-<main>
+<main class="d-flex align-center justify-center width100">
     <div class="wrapper">
-        <div class="nav">
+        <div class="nav justify-between width100 d-flex m-10-0">
             <text-field
                     (input)="searchStr = $event.data"
                     [width]="'170px'"
@@ -14,10 +14,11 @@
             <dropdown
                     [arrayData]="arrayDate"
                     placeholder="Premiere"
+                    [isDate]="true"
                     (change)="searchDate = $event">
             </dropdown>
         </div>
-        <div class="nav">
+        <div class="nav justify-between width100 d-flex m-10-0">
             <dropdown
                 [arrayData]="arrayGenre"
                 [width]="'190px'"

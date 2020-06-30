@@ -1,10 +1,11 @@
+@import "./../../../assets/style/variables";
 input{
-  background: #f59e4f;
-  color: white;
+  background: $text-field-background;
+  color: $text-field-color;
   padding: 5px 10px;
   outline: none;
   border: none;
   &::placeholder{
-    color: white;
+    color: $text-field-color-placeholder;
   }
 }

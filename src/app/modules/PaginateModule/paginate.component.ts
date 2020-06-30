@@ -14,6 +14,7 @@ export class PaginateComponent {
     @Input('activePageSize') activePageSize: number = ACTIVE_SIZE_DEF;
     @Input('isPagerActive') isPagerActive: boolean = false;
     @Input('displayLength') displayLength: number = DISPLAY_LENGTH_DEF;
+
     @Input('length') set length(length: any) {
         this._length = this.createArrayFromCount(length);
     }
@@ -28,20 +29,26 @@ export class PaginateComponent {
     }
 
     createArrayFromCount(length: number): number[]{
-        return Array.from({ length }, (_: any, k:number):number => k + 1);
+        return Array.from({ length }, (_: any, k: number): number => k + 1);
     }
 
-    get beforeRenderList(): boolean{
-        return this.current > 3;
+    get beforeRenderList(): boolean {
+        if (this.length.length <= this.displayLength) {
+            return false;
+        }
+        return (this.length.length - 3) >= ( this.length.length -  (this.current - 1) );
     }
 
     get afterRenderList(): boolean {
-        return (this.length.length - this.current) > 2
+        if (this.length.length <= this.displayLength) {
+            return false;
+        }
+        return (this.length.length - (this.current + 1) ) >= 3;
     }
 
     get steps(): number[] {
 
-        const realPosition = (this.current - 3)
+        const realPosition = (this.current - 3);
         let page = this.afterRenderList
             ? realPosition < 1 ? 0 : realPosition
             : this.current;

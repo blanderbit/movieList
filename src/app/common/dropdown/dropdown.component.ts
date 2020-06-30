@@ -11,15 +11,16 @@ import {
     styleUrls: ['./dropdown.component.scss']
 })
 export class DropdownComponent {
-    @Input('width') width:string = '';
-    @Input('value') value:string = '';
+    @Input('width') width: string = '';
+    @Input('value') value: string = '';
     @Input('arrayData') array: string[] = [];
-    @Input('placeholder') placeholder:string = '';
+    @Input('isDate') isDate: boolean;
+    @Input('placeholder') placeholder: string = '';
     @Output('change') change: EventEmitter<string> = new EventEmitter();
-    select:string
-    expand:boolean = true
+    select: string;
+    expand: boolean = true;
     clickEvent(item): void{
         this.select = item;
-        this.change.emit(item)
+        this.change.emit(item);
     }
 }

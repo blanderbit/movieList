@@ -1,9 +1,9 @@
-<div class="tr">
-    <div class="th"
+<div class="tr d-flex width100">
+    <div class="th  d-flex align-center justify-between"
          [style]="{width: widthForCol}"
          *ngFor="let item of array;">
         {{item.cellName}}
-        <div class="none filter" (click)="clickEvent(item)">
+        <div class="none filter d-flex align-center justify-center flex-column" (click)="clickEvent(item)">
             <div *ngIf="!activeOrder.way || !(item.filter && activeOrder.way === 'ASC')" class="ASC">&lt;</div>
             <div *ngIf="!activeOrder.way || !(item.filter && activeOrder.way === 'DESC')" class="DESC">&gt;</div>
         </div>
