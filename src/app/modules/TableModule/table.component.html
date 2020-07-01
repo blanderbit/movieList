@@ -1,4 +1,10 @@
-<div class="table flex-column d-flex width100">
+<div
+        infiniteScroll
+        [isActive]="infiniteScroll"
+        [count]="infiniteScrollCount"
+        class="table flex-column d-flex width100"
+        (loadMore)="onLoadInfinite($event)"
+>
     <ng-container *ngIf="disableTColumn">
         <ng-content select="t-column"></ng-content>
     </ng-container>

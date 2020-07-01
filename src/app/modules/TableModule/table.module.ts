@@ -5,6 +5,7 @@ import {TableComponent} from "./table.component";
 import {TColumnComponent} from "./components/t-column/t-column.component";
 import {TRowComponent} from "./components/t-row/t-row.component";
 import {THeadersComponent} from "./components/t-headers/t-headers.component";
+import {InfiniteScrollDirective} from "../../directives/infinit.scroll.directive";
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import {THeadersComponent} from "./components/t-headers/t-headers.component";
         TableComponent,
         TColumnComponent,
         TRowComponent,
-        THeadersComponent
+        THeadersComponent,
+        InfiniteScrollDirective
     ],
     exports: [
         TableComponent,

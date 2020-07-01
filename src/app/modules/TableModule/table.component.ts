@@ -16,30 +16,37 @@ export class TableComponent {
     @Input('limit') limit: number = ACTIVE_SIZE_DEF;
     @Input('orderBy') orderBy?: Object;
     @Input('childRowTemplate') childRowTemplate: ChildRowTemplateInterface[];
+    @Input('infiniteScroll') infiniteScroll: boolean = false;
+    @Input('infiniteScrollCount') infiniteScrollCount: number;
+    @Output('onLoadInfinite') loadInfinite: EventEmitter<number> = new EventEmitter<number>();
 
-    @Output('orderBy') order: EventEmitter<TColumnComponent> = new EventEmitter()
+    @Output('orderBy') order: EventEmitter<TColumnComponent> = new EventEmitter<TColumnComponent>()
     @ContentChildren( TColumnComponent) contentChild?;
     get propsTHead(): string[]{
-        return this.contentChild.map((data: TableChildConfig): TableChildConfig => new TableChildConfig(data))
+        return this.contentChild.map((data: TableChildConfig): TableChildConfig => new TableChildConfig(data));
     }
 
     get propsTProp(): string[]{
-        return this.getProps('cellProp')
+        return this.getProps('cellProp');
     }
 
     get propsDate(): string[]{
-        return this.getProps('date')
+        return this.getProps('date');
     }
 
     get propsTemplate(): string[]{
-        return this.getProps('template')
+        return this.getProps('template');
     }
 
     getProps(name:string): string[]{
-        return this.contentChild.map((i: TableChildConfig): staticTCollDate => i[name])
+        return this.contentChild.map((i: TableChildConfig): staticTCollDate => i[name]);
     }
 
     get widthCol (): number {
-        return WIDTH_TABLE_DEF / this.propsTHead.length
+        return WIDTH_TABLE_DEF / this.propsTHead.length;
+    }
+
+    onLoadInfinite(count: number){
+        this.loadInfinite.emit(count + 10)
     }
 }

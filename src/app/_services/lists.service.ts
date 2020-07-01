@@ -1,8 +1,9 @@
 import {Injectable} from "@angular/core";
-import {BehaviorSubject} from "rxjs";
+import { BehaviorSubject } from "rxjs";
+import { AppComponentHelper } from "../component-helper/app.component.helper";
 
 @Injectable()
-export class ListsService {
+export class ListsService extends AppComponentHelper<any>{
     state$ = new BehaviorSubject([
         {
             name: 'Test',
@@ -186,5 +187,13 @@ export class ListsService {
 
     getData(): BehaviorSubject<any[]>{
         return this.state$;
+    }
+
+    getUniqueGenre() {
+        return new Set(
+            this.CONCAT_ALL(
+                [...this.state$.value].map(i => i.genre)
+            )
+        );
     }
 }

@@ -1,5 +1,12 @@
 <main class="d-flex align-center justify-center width100">
+
     <div class="wrapper">
+        <btn
+            (click)="infinite = !infinite;"
+            [isActive]="infinite"
+            [width]="'100px'"
+            [text]="'Infinite scroll'">
+        </btn>
         <div class="nav justify-between width100 d-flex m-10-0">
             <text-field
                     (input)="searchStr = $event.data"
@@ -31,6 +38,9 @@
             (orderBy)="orderBy.field = $event.cellProp;orderBy.way = $event.order"
             [orderBy]="orderBy"
             [limit]="pager"
+            [infiniteScroll]="infinite"
+            (onLoadInfinite)="infinitePager = $event"
+            [infiniteScrollCount]="infinitePager"
             [childRowTemplate]="[
                 {
                     nameProps: 'name',
@@ -69,7 +79,7 @@
             </ng-template>
         </app-table>
         <app-paginate
-             *ngIf="pageLength > 0"
+             *ngIf="!infinite && pageLength > 0"
             [length]="pageLength"
             [current]="active"
             [isPagerActive]="true"

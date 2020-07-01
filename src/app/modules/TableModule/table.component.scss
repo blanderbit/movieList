@@ -1,4 +1,6 @@
 @import "./../../../assets/style/variables";
 .table{
+  overflow-y: scroll;
   background: $table-color;
+  max-height: 700px;
 }

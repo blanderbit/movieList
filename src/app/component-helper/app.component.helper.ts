@@ -1,6 +1,7 @@
+import {retry} from "rxjs/operators";
 
 export abstract class AppComponentHelper<T> {
-    PIPE = (...items: any[]): any => {
+    PIPE(...items: any[]): any {
         let state:any[] = []
         if(Array.isArray(items)){
             for(let item of items){
@@ -10,8 +11,10 @@ export abstract class AppComponentHelper<T> {
         return state;
     }
 
-    CONCAT_ALL = data => Array.isArray(data) ? data.reduce( (flat, toFlatten) => {
-        return flat.concat(Array.isArray(toFlatten) ? this.CONCAT_ALL(toFlatten) : toFlatten);
-    }, []) :[];
+    CONCAT_ALL (data) {
+        return Array.isArray(data) ? data.reduce( (flat, toFlatten) => {
+            return flat.concat(Array.isArray(toFlatten) ? this.CONCAT_ALL(toFlatten) : toFlatten);
+        }, []) :[]
+    };
 
 }
