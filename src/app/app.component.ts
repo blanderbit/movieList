@@ -8,6 +8,7 @@ import {ASC, DESC} from "./consts/const";
 import {ListsService} from "./_services/lists.service";
 import {OrdersService} from "./_services/orders.service";
 import {staticTColl, staticTCollDate} from "./modules/TableModule/interface-type/type";
+import {BadgeModels} from "./common/badge/interface/interface";
 
 @Component({
     selector: 'app-root',
@@ -214,6 +215,10 @@ export class AppComponent extends AppComponentHelper<any> {
      * 1) when inactive endless scroll
      *
      */
+
+    get genreWithColor (): BadgeModels[] {
+        return this.lService.genreWithColor
+    }
 
     constructor(
         @Inject(ListsService) private lService: ListsService,
