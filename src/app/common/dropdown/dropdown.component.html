@@ -1,7 +1,13 @@
 
 <div class="dropdown" (click)="expand = !expand" [ngStyle]="{width: width}">
     <div class="dropdown-toggle width100" >
-        <span class="hidden-xs width100">{{ select || placeholder }}</span>
+        <span class="hidden-xs width100">
+            <span *ngIf="!select && placeholder && !isDate">{{ placeholder }}</span>
+            <span *ngIf="!select && placeholder && isDate">{{ placeholder }}</span>
+            <span *ngIf="select && !isDate">{{ select }}</span>
+            <span *ngIf="isDate">{{ select | date}}</span>
+        </span>
+
         <i class="fa fa-table">&hearts;</i>
     </div>
     <ul class="dropdown-menu slide" [hidden]="expand">

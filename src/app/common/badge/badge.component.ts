@@ -1,10 +1,7 @@
 import {
     Component,
-    EventEmitter,
-    Input,
-    Output
+    Input
 } from '@angular/core';
-import {BadgeInterface} from "./interface/interface";
 
 @Component({
     selector: 'badge',
@@ -12,28 +9,13 @@ import {BadgeInterface} from "./interface/interface";
     styleUrls: ['./badge.component.scss']
 })
 export class BadgeComponent {
-    _arrayData: BadgeInterface[] = [];
-    @Input('arrayData') set array(value: any) {
-        this._arrayData = value.map((item: string): BadgeInterface => {
-            return {
-                name: item,
-                color: this.randColor(),
-                id: this.uniqueId()
-            };
-        });
-    }
+    @Input('arrayData') array = [];
+    @Input('arrayDataCheck') arrayCheck = [];
 
-    get array(): any {
-        return this._arrayData;
+    getColor(name: string): string | undefined | null {
+        if (Array.isArray(this.arrayCheck)) {
+            const findElement = this.arrayCheck.find((i: any) => i.name === name);
+            return findElement ? findElement.color : null;
+        }
     }
-
-    randColor(): string {
-        const r = this.toFloor(256),
-            g = this.toFloor(256),
-            b = this.toFloor(256);
-        return `rgba(${r},${g},${b}, 0.5)`;
-    }
-
-    toFloor = (count: number): number => Math.floor(Math.random() * (count));
-    uniqueId = (): string => Math.random().toString(36).slice(-8);
 }

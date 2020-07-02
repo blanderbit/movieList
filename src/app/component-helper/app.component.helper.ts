@@ -1,20 +1,25 @@
-import {retry} from "rxjs/operators";
+import {BehaviorSubject} from "rxjs";
+import {Helper} from "./helper";
 
-export abstract class AppComponentHelper<T> {
-    PIPE(...items: any[]): any {
-        let state:any[] = []
-        if(Array.isArray(items)){
-            for(let item of items){
-                state = typeof item === 'function' ? item(state) : item;
-            }
-        }
-        return state;
+
+
+export abstract class AppComponentHelper<T> extends Helper<T> {
+
+    abstract dataSource: BehaviorSubject<any>;
+
+    /**
+     * implementation expected in child class
+     */
+
+    getDataSource(name: string): Set<T> {
+        return new Set(
+            super.getDataSourceArray(this.dataSource.value, name)
+        );
     }
 
-    CONCAT_ALL (data) {
-        return Array.isArray(data) ? data.reduce( (flat, toFlatten) => {
-            return flat.concat(Array.isArray(toFlatten) ? this.CONCAT_ALL(toFlatten) : toFlatten);
-        }, []) :[]
-    };
-
+    /**
+     *  getDataSource()
+     *
+     * call getDataSourceArray(), please check  helper.ts
+     */
 }

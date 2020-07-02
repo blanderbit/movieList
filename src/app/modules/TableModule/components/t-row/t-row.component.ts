@@ -27,7 +27,19 @@ export class TRowComponent {
             : [];
     }
 
+    /**
+     *  arrayProps()
+     *
+     *  get array date value from object
+     */
+
     getTemplate(name: string): ChildRowTemplateInterface | object {
         return this.childRowTemplate.find(i => i.nameProps === name);
     }
+
+    /**
+     *  getTemplate()
+     *
+     * see if the template is used to the column
+     */
 }

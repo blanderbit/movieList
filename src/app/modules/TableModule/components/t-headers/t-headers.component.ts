@@ -12,10 +12,10 @@ export class THeadersComponent {
     @Input('activeOrder') activeOrder: any;
     @Output('orderBy') order: EventEmitter<TColumnComponent> = new EventEmitter();
 
-    get widthForCol () {
+    get widthForCol(): string {
         return `${this.width}%`;
     }
-    clickEvent(item){
+    clickEvent(item): void{
         item.order = this.activeOrder.way === 'ASC' ? 'DESC' : 'ASC';
         this.order.emit(item);
     }

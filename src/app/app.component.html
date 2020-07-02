@@ -75,11 +75,14 @@
                 <div>
                     {{item.name}}
                 </div>
-                <badge [arrayData]="item.genre || []"></badge>
+                <badge
+                        [arrayData]="item.genre || []"
+                        [arrayDataCheck]="lService.genreWithColor"
+                ></badge>
             </ng-template>
         </app-table>
         <app-paginate
-             *ngIf="!infinite && pageLength > 0"
+             *ngIf="isPaginate"
             [length]="pageLength"
             [current]="active"
             [isPagerActive]="true"

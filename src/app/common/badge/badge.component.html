@@ -1,9 +1,9 @@
 
 <div class="badge-container" >
     <div class="badge" *ngFor="let item of array;" [style]="{
-        background: item.color
+        background: getColor( item )
     }">
-        {{item.name}}
+        {{item}}
     </div>
 </div>
 

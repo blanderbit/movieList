@@ -32,6 +32,12 @@ export class PaginateComponent {
         return Array.from({ length }, (_: any, k: number): number => k + 1);
     }
 
+    /**
+     *  createArrayFromCount()
+     *
+     * create pagination elements (an array with a number) from which pages will then be displayed
+     */
+
     get beforeRenderList(): boolean {
         if (this.length.length <= this.displayLength) {
             return false;
@@ -39,9 +45,27 @@ export class PaginateComponent {
         return (this.length.length - 3) > ( this.length.length -  (this.current - 1) );
     }
 
+    /**
+     * beforeRenderList()
+     *
+     * display of the effect of 3 points at the beginning
+     *
+     * can be easier
+     */
+
+
     get getPersent(){
         return (100) / (this.current % 2 === 0 ? 4 : 3);
     }
+
+    /**
+     * getPersent()
+     *
+     * a simple proportion with which it is calculated when we show the effect of 3 points at the end of pagination
+     *
+     * can be easier
+     */
+
 
     get afterRenderList(): boolean {
         if (this.length.length <= this.displayLength) {
@@ -50,6 +74,15 @@ export class PaginateComponent {
         const step = ((100  * this.current) / this.length.length);
         return Math.ceil(step + this.getPersent) < 100;
     }
+
+    /**
+     * afterRenderList()
+     *
+     * check the percentage and porosity of the current element with the help of the proportion,
+     * depending on the percentage, select whether to show 3 points or not
+     *
+     * can be easier
+     */
 
     get steps(): number[] {
 
@@ -65,10 +98,20 @@ export class PaginateComponent {
             this.displayLength
         );
     }
+
+    /**
+     * steps()
+     *
+     * the central zone in the pagination, which is flanked by 3 points on the sides with a large number of elements
+     *
+     * can be easier
+     */
+
     nextStep(): void {
         if(this.current < this.length.length)
             this.eventCLick(this.current + 1);
     }
+
     prevStep(): void  {
         if(this.current > 1)
             this.eventCLick(this.current - 1);
